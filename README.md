@@ -117,8 +117,53 @@ Normalize our dataset.
 
 8. Finally, call the functions confusion_matrix(), and the classification_report() in order to evaluate the performance of our classifier.
 
-## PROGRAM 
+## PROGRAM
+```
+Developed by : G. Lutheesh
+Reference number : 212221230029
+```
+```
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+data=pd.read_csv("/content/IRIS (1).csv")
+data.head()
+
+name=["sepal_length","sepal_width","petal_length","petal_width"]
+x=data.iloc[:,0:4]
+y=data.select_dtypes(include=[object])
+x.head()
+y.head()
+
+from sklearn import preprocessing
+label_encoder=preprocessing.LabelEncoder()
+data['species']=label_encoder.fit_transform(data['species'])
+data['species'].unique()
+
+from sklearn.model_selection import train_test_split
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.20)
+from sklearn.preprocessing import StandardScaler
+scaler=StandardScaler()
+scaler.fit(x_train)
+x_train=scaler.transform(x_train)
+x_test=scaler.transform(x_test)
+
+from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.neural_network import MLPClassifier
+mlp=MLPClassifier(hidden_layer_sizes=(10,10,10),max_iter=1000)
+mlp.fit(x_train,y_train.values.ravel())
+predictions=mlp.predict(x_test)
+print(predictions)
+
+print(confusion_matrix(y_test,predictions))
+print(classification_report(y_test,predictions))
+```
 
 ## OUTPUT 
+![233030134-4da9f6e3-9ea8-48d1-b127-aaa3bd91f61b](https://user-images.githubusercontent.com/94154531/233902650-8bf475eb-4999-4ab2-a32c-4a64c48e1109.png)
+![233029712-2da12dde-bd0b-4cdd-a08a-16b31b6eb860](https://user-images.githubusercontent.com/94154531/233902677-3c21ef7f-0f3c-4f73-9180-6844cbeb9b26.png)![233029804-e67213cc-f2dc-4988-a22f-53a39fb39316](https://user-images.githubusercontent.com/94154531/233902713-56a8d504-97b4-44df-8615-e9f8cfa086a2.png)![233029885-fe3fe9fe-bcfa-49bc-8cbd-9d99f3aa3756](https://user-images.githubusercontent.com/94154531/233902727-a8374af6-5db4-4f3c-8920-4e27b976cfb5.png)
+
+
 
 ## RESULT
+Thus Implementation-of-MLP-with-Backpropagation problem is executed successfully.
